@@ -3,7 +3,7 @@ import { Box, Stack, TextField, Button} from "@mui/material"
 import { useState } from "react";
 export default function Home() {
   const [messages, setMessages] = useState([
-    {role: 'assistant', content: "Hi I'm the Headstarter support assistant. How may I help you?"},
+    {role: 'assistant', content: "Hi I'm a virtual dietition. How may I help you?"},
   ])
 
   const sendMessage = async () => {
