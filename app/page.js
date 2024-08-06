@@ -7,15 +7,34 @@ export default function Home() {
   ])
 
   const sendMessage = async () => {
-    const response = await fetch('/api/chat', {
+    setMessage('')
+    setMessages((messages) => [...messages, {role: 'user', content: message}, {role: 'assistant', content: ''}])
+    const response = fetch('/api/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify([...messages, {role: 'user', content: message}]),
+    }) .then(async (res) => {
+      const reader = res.body.getReader()
+      const decoder = new TextDecoder()
+      let result = ''
+      return reader.read().then(function processText({done, value}){
+        if (done) {
+          return result
+        }
+        const text = decoder.decode(value || new Uint8Array(), {stream: true})
+        setMessages((messages) => {
+          let lastMessage = messages[messages.length - 1]
+          let otherMessages = messages.slice(0, messages.length - 1)
+
+          return [
+            ...otherMessages, 
+            {...lastMessage, content: lastMessage.content + text}]
+        })
+        return reader.read().then(processText)
+      })
     })
-    const data = await response.json()
-    setMessages([...messages, {role: 'assistant', content: data.message}])
   }
 
   const [message, setMessage] = useState('')
@@ -29,8 +48,18 @@ export default function Home() {
       alignItems="center"
       bgcolor="white"
     >
-      <Stack direction={"column"} width="500px" height="700px" border="1px solid black" p={2}>
-        <Stack directions={"column"} spacing={2} flexGrow={1}>
+      <Stack 
+        direction={"column"} 
+        width="500px" 
+        height="700px" 
+        border="1px solid black" 
+        p={2}
+        >
+        <Stack 
+          directions={"column"} 
+          spacing={2} 
+          flexGrow={1}
+          overflow="auto">
           {
             messages.map((message, index) => (
               <Box
@@ -41,7 +70,7 @@ export default function Home() {
                 <Box
                   bgcolor={message.role === 'assistant' ? 'primary.main' : 'secondary.main'}
                   color="white"
-                  borderRadius={16}
+                  borderRadius={5}
                   p={2}
                 >  
                   {message.content}
@@ -50,7 +79,7 @@ export default function Home() {
             ))
           }
         </Stack>
-        <Stack direction={'row'} spacing={2}>
+        <Stack direction={'row'} spacing={2} p={1}>
           <TextField label="Message" 
           fullWidth
           value={message}
