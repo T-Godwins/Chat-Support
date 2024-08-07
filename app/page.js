@@ -1,6 +1,8 @@
 "use client"
 import { Box, Stack, TextField, Button} from "@mui/material"
 import { useState } from "react";
+import Markdown from 'react-markdown'
+
 export default function Home() {
   const [messages, setMessages] = useState([
     {role: 'assistant', content: "Hi I'm a virtual dietition. How may I help you?"},
@@ -53,6 +55,7 @@ export default function Home() {
         width="500px" 
         height="700px" 
         border="1px solid black" 
+        borderRadius={5}
         p={2}
         >
         <Stack 
@@ -72,8 +75,9 @@ export default function Home() {
                   color="white"
                   borderRadius={5}
                   p={2}
+                  sx={{ wordWrap: 'break-word' }}
                 >  
-                  {message.content}
+                  <Markdown>{message.content}</Markdown>
                 </Box>
               </Box>
             ))
