@@ -49,25 +49,27 @@ export default function Home() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      bgcolor="black"
+      bgcolor="white"
     >
       <Stack
         direction={"column"} 
-        width={{xs: "80%", md:"70%", lg:"50%"}} 
+        width={{xs: "90%", md:"70%", lg:"50%"}} 
         height={{xs: "70%", md:"70%", lg:"70%"}} 
-        border="1px solid grey" 
+        // border="2px solid grey" 
         borderRadius={5}
         bgcolor="white"
+        sx={{boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)'}}
         p={2}        
         >
         <Stack 
           directions={"column"} 
-          spacing={2} 
+          spacing={0} 
           flexGrow={1}
-          overflow="auto">
+          overflow="auto"
+          >
           {
             messages.map((message, index) => (
-              <Box
+              <Box color="white"
                 key={index}
                 display="flex"
                 justifyContent={message.role === 'assistant' ? 'flex-start': 'flex-end'}
@@ -78,12 +80,14 @@ export default function Home() {
           }
         </Stack>
         <Stack direction={'row'} spacing={2} p={1}>
-          <TextField label="Message" 
+          <TextField 
+          variant="outlined"
+          label="Message" 
           fullWidth
           value={message}
           onChange={(e) => setMessage(e.target.value)} 
           />
-          <Button variant="contained" onClick={sendMessage}>
+          <Button variant="contained" color="inherit" onClick={sendMessage}>
             Send
           </Button>
         </Stack>
