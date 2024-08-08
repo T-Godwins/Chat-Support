@@ -1,6 +1,6 @@
 
 "use client"
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography} from "@mui/material";
 import * as React from 'react';
 import Chatbot from './components/Chatbot';
 
@@ -19,7 +19,10 @@ export default function Home() {
       alignItems="center"
       bgcolor="white"
     >
-      <Button onClick={handleOpen}>Start Chatting</Button>
+      <Typography variant="h2" gutterBottom p={2} sx={{ textAlign:"center", fontSize: {xs:'2rem', md:'3rem', lg:'5rem'}}} >
+        Welcome to your personal Dietitian
+      </Typography>
+      <Button onClick={handleOpen} sx={{ fontSize: {xs:'20px', md:'25px', lg:'30px'}, borderRadius: '15px' }}>Start Chatting</Button>
       <Chatbot open={open} handleClose={handleClose} />
     </Box>
   );
