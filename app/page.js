@@ -2,6 +2,7 @@
 import { Box, Stack, TextField, Button} from "@mui/material"
 import { useState } from "react";
 import Markdown from 'react-markdown'
+import Messages from './components/Messages'
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -48,15 +49,16 @@ export default function Home() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      bgcolor="white"
+      bgcolor="black"
     >
-      <Stack 
+      <Stack
         direction={"column"} 
-        width="500px" 
-        height="700px" 
-        border="1px solid black" 
+        width={{xs: "80%", md:"70%", lg:"50%"}} 
+        height={{xs: "70%", md:"70%", lg:"70%"}} 
+        border="1px solid grey" 
         borderRadius={5}
-        p={2}
+        bgcolor="white"
+        p={2}        
         >
         <Stack 
           directions={"column"} 
@@ -70,15 +72,7 @@ export default function Home() {
                 display="flex"
                 justifyContent={message.role === 'assistant' ? 'flex-start': 'flex-end'}
               >
-                <Box
-                  bgcolor={message.role === 'assistant' ? 'primary.main' : 'secondary.main'}
-                  color="white"
-                  borderRadius={5}
-                  p={2}
-                  sx={{ wordWrap: 'break-word' }}
-                >  
-                  <Markdown>{message.content}</Markdown>
-                </Box>
+                <Messages role={message.role} content={message.content} />
               </Box>
             ))
           }
