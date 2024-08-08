@@ -3,7 +3,7 @@
 import { Box, Button, Typography} from "@mui/material";
 import * as React from 'react';
 import Chatbot from './components/Chatbot';
-import Login from '.components/Login';
+// import Login from '.components/Login';
 
 export default function Home() {
   const [open, setOpen] = React.useState(false);
@@ -21,7 +21,7 @@ export default function Home() {
       alignItems="center"
       bgcolor="white"
     >
-      <Login/>
+      {/* <Login/> */}
       <Typography variant="h2" gutterBottom p={2} sx={{ textAlign:"center", fontSize: {xs:'2rem', md:'3rem', lg:'5rem'}}} >
         Welcome to your personal Dietitian
       </Typography>
