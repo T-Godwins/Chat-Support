@@ -4,11 +4,12 @@ import Markdown from 'react-markdown'
 const Message = ({role, content}) => {
     return (
         <Box
-        bgcolor={role === 'assistant' ? 'primary.main' : 'secondary.main'}
-        color="white"
-        borderRadius={5}
-        p={4}
-        sx={{ wordWrap: 'break-word' }}
+        bgcolor={role === 'assistant' ? 'white' : 'crimson'}
+        fontSize={{xs:12, md:15, lg:20}}
+        color={role === 'assistant' ? 'black' : 'white'}
+        borderRadius={3}
+        p={role === 'assistant' ? 3 : 1}
+        sx={{ wordWrap: 'break-word'}}
         >  
         <Markdown>{content}</Markdown>
       </Box>
