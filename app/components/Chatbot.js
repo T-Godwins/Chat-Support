@@ -7,7 +7,7 @@ import * as React from 'react';
 
 export default function Chatbot({ open, handleClose }) {
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: "Hi I'm your virtual dietitian. How may I help you?" },
+    { role: 'assistant', content: "Hi I'm your virtual Career Coach. How may I help you?" },
   ]);
 
   const [message, setMessage] = useState('');
