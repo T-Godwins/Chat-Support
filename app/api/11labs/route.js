@@ -1,28 +1,28 @@
-// import { ElevenLabsClient, play } from "elevenlabs";
-
-// const elevenlabs = new ElevenLabsClient({
-//   apiKey: process.env.ELEVENLABS_API_KEY
-// })
-
-// const audioStream = await elevenlabs.generate({
-//     stream: true,
-//     voice: "Adam",
-//     text: "This is a... streaming voice",
-//     model_id: "eleven_multilingual_v2"
-//   });
-  
-//   stream(audioStream)
-
-import { ElevenLabsClient, ElevenLabs } from "elevenlabs";
+import { ElevenLabsClient } from "elevenlabs";
 
 const client = new ElevenLabsClient({ apiKey: process.env.ELEVENLABS_API_KEY });
-await client.textToSpeech.convert("pMsXgVXv3BLzUgSXRplE", {
-    optimize_streaming_latency: ElevenLabs.OptimizeStreamingLatency.Zero,
-    output_format: ElevenLabs.OutputFormat.Mp32205032,
-    text: "It sure does, Jackie\u2026 My mama always said: \u201CIn Carolina, the air's so thick you can wear it!\u201D",
-    voice_settings: {
-        stability: 0.1,
-        similarity_boost: 0.3,
-        style: 0.2
-    }
-});
+
+// export async function POST(req, res) {
+//   const { text } = await req.json();
+
+//   try {
+//     const audioStream = await client.textToSpeech.convert("pMsXgVXv3BLzUgSXRplE", {
+//       optimize_streaming_latency: ElevenLabs.OptimizeStreamingLatency.Zero,
+//       output_format: ElevenLabs.OutputFormat.Mp32205032,
+//       text: text,
+//       voice_settings: {
+//         stability: 0.1,
+//         similarity_boost: 0.3,
+//         style: 0.2,
+//       },
+//     });
+
+//     // Send back the audio stream or a URL to the audio file
+//     res.status(200).json({ audioStreamUrl: audioStream.url });
+//   } catch (error) {
+//     console.error("Error generating speech:", error);
+//     res.status(500).json({ error: "Error generating speech" });
+//   }
+// }
+
+export default client;

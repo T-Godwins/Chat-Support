@@ -4,6 +4,11 @@ import { Box, Stack, TextField, Button, Modal } from "@mui/material";
 import { useState } from "react";
 import Messages from './Messages';
 import * as React from 'react';
+// import { ElevenLabsClient } from "elevenlabs";
+// import client from "../api/11labs/route";
+
+
+// const client = new ElevenLabsClient({ apiKey: process.env.ELEVENLABS_API_KEY });
 
 export default function Chatbot({ open, handleClose }) {
   const [messages, setMessages] = useState([
@@ -13,8 +18,10 @@ export default function Chatbot({ open, handleClose }) {
   const [message, setMessage] = useState('');
 
   const sendMessage = async () => {
+    
     setMessage('');
     setMessages((messages) => [...messages, { role: 'user', content: message }, { role: 'assistant', content: '' }]);
+    
     const response = fetch('/api/chat', {
       method: 'POST',
       headers: {
@@ -24,6 +31,7 @@ export default function Chatbot({ open, handleClose }) {
     }).then(async (res) => {
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
+
       let result = '';
       return reader.read().then(function processText({ done, value }) {
         if (done) {
@@ -38,11 +46,36 @@ export default function Chatbot({ open, handleClose }) {
             ...otherMessages,
             { ...lastMessage, content: lastMessage.content + text }
           ];
+
         });
         return reader.read().then(processText);
       });
+      const audio = new Audio(text.audioStreamUrl);
+      audio.play();
     });
+
   };
+
+  // const textToSpeech = async (text) => {
+  //   try {
+  //     const audioStream = await client.textToSpeech.convert("pMsXgVXv3BLzUgSXRplE", {
+  //       optimize_streaming_latency: ElevenLabs.OptimizeStreamingLatency.Zero,
+  //       output_format: ElevenLabs.OutputFormat.Mp32205032,
+  //       text: text,
+  //       voice_settings: {
+  //         stability: 0.1,
+  //         similarity_boost: 0.3,
+  //         style: 0.2,
+  //       },
+  //     });
+
+  //     // Play the audio directly in the browser
+  //     const audio = new Audio(audioStream.url);
+  //     audio.play();
+  //   } catch (error) {
+  //     console.error('Error generating speech:', error);
+  //   }
+  // };
 
   return (
     <Modal
